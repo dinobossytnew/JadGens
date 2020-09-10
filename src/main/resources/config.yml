@@ -1,0 +1,318 @@
+messages:
+  #<---(Messages from commands)--->
+  helpMessages:
+    - "&3&lJadGens &eby &bJadss_pt&e!"
+    - "&3&lCommands&e:"
+    - "&3"
+    - "&3/JadGens &bHelp &7: &eDisplay &c&lTHIS &ehelp message!"
+    - "&3/JadGens &bGive &b<Type> &a<ID> &a<Player> &7: &eGives the player a machine or fuel!"
+    - "&3/JadGens &bPurge &7: &ePurges &c&lALL &3Machines&e."
+    - "&3/JadGens &bReload &7: &eReload the &3plugin &c(not recommended, just restart the server)"
+    - "&3/JadGens &bShop &b<Type> &7: &eOpen the &3&lShop&e!"
+    - "&3/JadGens &bInfo &7: &eShows &b&linfo &eabout your &3&lMachines&e!"
+    - "&3/JadGens &bVersion &7: &eSee the &bversion &eof the &3&lplugin&e!"
+    - "&e"
+  giveMessages:
+    permission: "JadGens.give"
+    #the id is the machine id, or fuel id that can be defined below, it needs to be a number !
+    usage: "&cBad Usage! &eUse: &3&3/JadGens &bgive &b&l<fuel/machine> &a<ID> &a<Player>"
+    givenMachine: "&eYou have been &bgiven &ea &3&lmachine&e!"
+    givenFuel: "&eYou have been &bgiven &ea &3&lFuel&e!"
+    idNotFound: "&eThe &3&lID &aspecified &cdoesn't &bexist&e!"
+    typeNotFound: "&eTHe &3&lType &aspecified &cdoesn't &bexist&e!"
+
+  purgeMessages:
+    purgingMachines: "&ePurging &3&lmachines&e..."
+
+  reloadMessages:
+    permission: "JadGens.reload"
+    pluginReloaded: "&eThe &3&lPlugin &ehas been &b&lReloaded&e! &e(You should &3restart &eso every change applies)"
+
+  infoCommand:
+    infinite: "&b&lInfinite"
+    msg:
+      - "&3JadGens &7>> &eYou have &3%has% &b&lMachines&e, your &3&lmax &eis &b%max%&e!"
+
+  #<---(Messages from commands)--->
+
+  machinesMessages:
+    placed: "&eYou've &aplaced &ea &3&lMachine&e!"
+    broken: "&eYou've &abroke &ea &3&lMachine&e!"
+    limitReached: "&eYou &c&lcannot &bplace &amore &3&lMachines!"
+    notTheOwner: "&eYou're &cnot &ethe &3&lowner &eof this &b&lmachine&e!"
+
+  fuelMessages:
+    used: "&eYou've used &b&lfuel &eon your &3&lmachine&e!"
+    machineNotAcceptingFuel: "&eThis &3&lmachine &edoesn't use &bfuel&e!"
+    notAMachine: "&eThis is &c&lnot &ea &3&lmachine&e!"
+    doesntAcceptMoreFuel: "&eThis &3&lmachine &ereached the &a&lmax &b&lFuel&e!"
+
+  noPermission: "&eNo &3&lPermission&e!"
+  playerNotFound: "&eThe &3player &aspecified &ewas &c&lnot &efound!"
+  notPLayer: "&eYou're not a player! You cannot use this command!"
+  onlyConsole: "&eYou &ccannot &aexecute &ethis! Only the &b&lconsole&e!"
+  noInventorySpace: "&eNo &3&linventory &aspace &eto &a&lplace &ethe &b&lMachine&e!"
+  noPistonMoving: "&eYou &c&lcannot &euse &3pistons &eto &a&lmove &b&lMachines&e!"
+  #this permission is needed because you cannot break a machine from another player.. Making the machine fixed till the owner breaks it.
+  bypassPermission: "JadGens.bypassBreak"
+
+  #If this is true, every time a plugin uses the plugin's api, it will be logged.
+  debugAPI: false
+
+
+machineGui:
+  #Should we enable the machines gui when the player right clicks the machine?
+  enabled: true
+  title: "&3&lMachine"
+  #about the drops check item in the gui.
+  dropsCheckItem:
+    enabled: true
+    #1 = first slot, 9 = last slot.
+    slot: 5
+    backItem:
+      material: STAINED_GLASS_PANE
+      #change if you're 1.12 and below.
+      damage: 3
+    item:
+      material: IRON_INGOT
+      damage: 0 #just change this is the value of the stained glass after it's id.. just keep that in mind when changing this value, also, 0 is the default damage value.
+    displayName: "&3Drops"
+    lore:
+      - "&eYour &3&lmachine &ehas:"
+      - "&b%remaining% &eout of &b%max% &3Drops &bremaining&e!"
+    #lore used when the machine doesn't need fuel to continue producing!
+    infiniteLore:
+      - "&eYour &3&lmachine &ehas:"
+      - "&bInfinite &3Drops&e!"
+
+shop:
+  #The plugin supports "ECO" (Economy) and "EXP" (Experience Levels) as currencies currently.
+
+  enabled: true
+  #There are 2 types of shop:
+  # - 1 > This shop just contains 2 menus, the fuel shop and machine shop! and the can be accessed by "/jadgens shop <fuels/machines>
+  # - 2 > This shop contains 3 menus, the fuel shop, machine shop and the shop main menu, can be configured at "shopMainMenu" a bit below.
+  shopType: 2
+  noMoney: "&eNo &asufficient &3&lMoney &efor this &b&lMachine&e!"
+  purchaseSuccesfull: "&3&lItem &b&lbought &ewith &a&lSuccess&e!"
+  shopTitle: "&bMachines &3&lShop"
+  #this main menu you can select the mahcines or fuel. can be controlled by the "shopType".
+  shopMainMenu:
+    machinesItem:
+      #which slot is this item going to be in? (in the main shop menu.) [1-27]
+      slot: 12
+      material: DIAMOND_BLOCK
+      damage: 0
+      name: "&eBuy &3Machines"
+      lore:
+        - "&eClick to &a&lbuy &esome &3&lmachines&e!"
+    fuelsItem:
+      #which slot is this item going to be in? (in the main shop menu.) [1-27]
+      slot: 16
+      material: COAL
+      damage: 0
+      name: "&eBuy &bFuels"
+      lore:
+        - "&eClick to &a&lbuy &esome &b&lfuels&e!"
+  backgroundItem:
+    material: STAINED_GLASS_PANE
+    #damage value is not supported at 1.13+
+    damage: 3
+  ecoCurrency:
+    lore:
+      - "&3Buy &efor &b%price% &lMoney&e!"
+      - "&eClick to &bBuy&e!"
+  expCurrency:
+    lore:
+      - "&3Buy &efor &b%price% &lEXP&e!"
+      - "&eClick to &bBuy&e!"
+  pointsCurrency:
+    lore:
+      - "&3Buy &efor &b%price% &lPoints&e!"
+      - "&eClick to &bBuy&e!"
+
+machineLimiter:
+  #Only change the values!
+  default:
+    #you can use: -1 for infinite machine places.
+    #use: -2 to prevent machine places.
+    amount: 10
+  limit1:
+    permission: JadGens.limit.1
+    amount: 50
+  limit2:
+    permission: JadGens.limit.2
+    amount: 100
+  limit3:
+    permission: JadGens.limit.3
+    amount: 150
+  limit4:
+    permission: JadGens.limit.4
+    amount: 300
+  limit5:
+    permission: JadGens.limit.5
+    amount: -1 # -1 = infinite.
+
+machinesConfig:
+  #In which delay should the machines produce?
+  machinesDelay: 10
+  #Should the machines which are destroyed, be removed? (highly suggest not disabling this!)
+  autoDestroy: true
+  #Should we prevent the machines from being broken by explosions?
+  preventMachineExplosion: true
+  #Should we prevent the machines from being moved by pistons?
+  preventPistonsMoveMachines: true
+
+machines:
+  #the value below is the ID of the machine!
+  1:
+    shop:
+      #should this machine be displayed on shop?
+      displayOnShop: true
+      #price of the machine? the currency can be configured in the "shop" section.
+      price: 150
+      #every currency supported is in the shop category up top.
+      currency: EXP
+      #in which slot of the shop will this item be displayed? 1 to 27
+      slot: 1
+    displayName: "&b&lDiamond &eGen"
+    lore:
+      - "&eThis is a &b&ldiamond machine&e!"
+      - "&eIt gives you &2money&e!"
+    glow: true
+    MachineBlock:
+      material: DIAMOND_BLOCK
+      #use "damage" on glass panels or stuff like that.
+      damage: 0
+
+    #fuel options:
+    #does the machine need fuel to produce? (making this false makes the machine not ACCEPT fuel)
+    needsFuelToProduce: false
+    maxFuel: 100
+
+    #when the machine produces you can enable what the machines does.
+    dropItems:
+      enabled: true
+      material: DIAMOND
+      damage: 0
+      amount: 1
+    #----Commands Stuff---- (they are run by the console!) [only when the player is online!]
+    commands:
+      enabled: false
+      commands:
+        - "/eco give %owner% 5"
+        - "/say %owner% has gained 5$"
+    #----Economy Stuff----
+    economy:
+      enabled: true
+      #how much to give of economy to the player?
+      give: 1000
+    #----Points Stuff----
+    points:
+      enabled: false
+      #how much to give of economy to the player?
+      give: 10
+    #----EXP Stuff---- (can only be executed if the player is "ONLINE".
+    exp:
+      enabled: false
+      givelevels: 1
+
+  2:
+    shop:
+      #should this machine be displayed on shop?
+      displayOnShop: true
+      #price of the machine? the currency can be configured in the "shop" section.
+      price: 50
+      #every currency supported is in the shop category up top.
+      currency: EXP
+      #in which slot of the shop will this item be displayed? 1 to 27
+      slot: 2
+    displayName: "&b&lXP &3Gen"
+    lore:
+      - "&eThis is a &6&lGold &b&lMachine&e!"
+      - "&eIt gives you &35 &bLevel!"
+    glow: true
+    MachineBlock:
+      material: GOLD_BLOCK
+      #use "damage" on glass panels or stuff like that.
+      damage: 0
+
+    #fuel options:
+    #does the machine need fuel to produce? (making this false makes the machine not ACCEPT fuel)
+    needsFuelToProduce: true
+    maxFuel: 50
+
+    #when the machine produces you can enable what the machines does.
+    dropItems:
+      enabled: false
+      material: DIAMOND
+      damage: 0
+      amount: 1
+    #----Commands Stuff---- (they are run by the console!) [only when the player is online!]
+    commands:
+      enabled: false
+      commands:
+        - "/eco give %owner% 5"
+        - "/say %owner% has gained 5$"
+    #----Economy Stuff----
+    economy:
+      enabled: false
+      #how much to give of economy to the player?
+      give: 1000
+    #----Points Stuff----
+    points:
+      enabled: true
+      #how much to give of economy to the player?
+      give: 10
+    #----EXP Stuff---- (can only be executed if the player is "ONLINE".
+    exp:
+      enabled: true
+      givelevels: 5
+
+
+fuels:
+  #the value below is the ID of the fuel!
+  1:
+    shop:
+      #should this machine be displayed on shop?
+      displayOnShop: true
+      #price of the machine? the currency can be configured in the "shop" section.
+      price: 5
+      #every currency supported is in the shop category up top.
+      currency: EXP
+      #in which slot of the shop will this item be displayed? 1 to 27
+      slot: 1
+    displayName: "&a&lEmerald &bFuel"
+    lore:
+      - "&eThis &3&lfuel &egives your &b&lmachine"
+      - "&310 &3Drops&e!"
+      - "&e"
+      - "&3Shift &bRight-click &eto &a&luse&e!"
+    glow: true
+    item:
+      material: GOLD_INGOT
+      damage: 0 #use "damage" on glass panels or stuff like that.
+    drops: 10 #How many drops does this fuel give to the machine?
+  #the value below is the ID of the fuel!
+  2:
+    shop:
+      #should this machine be displayed on shop?
+      displayOnShop: true
+      #price of the machine? the currency can be configured in the "shop" section.
+      price: 15
+      #every currency supported is in the shop category up top.
+      currency: EXP
+      #in which slot of the shop will this item be displayed? 1 to 27
+      slot: 2
+    displayName: "&3Super &a&lEmerald &bFuel"
+    lore:
+      - "&eThis &3&lfuel &egives your &b&lmachine"
+      - "&320 &3Drops&e!"
+      - "&aBetter &ethen the &a&lEmerald &bFuel&e!"
+      - "&e"
+      - "&3Shift &bRight-click &eto &a&luse&e!"
+    glow: true
+    item:
+      material: GOLD_INGOT
+      damage: 0 #use "damage" on glass panels or stuff like that.
+    drops: 20 #How many drops does this fuel give to the machine?
