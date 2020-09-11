@@ -35,6 +35,12 @@ public class ProduceMachineDelayTask extends BukkitRunnable {
 
     private void produceMachineStuff(String id, int type) {
         //////////////////////////////////////////////
+
+        if (JadGens.getInstance().getConfig().getBoolean("machinesConfig.stopProducingIfOffline")) {
+            Player testOnline = Bukkit.getPlayer(UUID.fromString(data().getString("machines." + id + ".owner")));
+            if (testOnline == null) return;
+        }
+
         if (JadGens.getInstance().getConfig().getBoolean("machines." + type + ".dropItems.enabled")) {
             World wl = Bukkit.getServer().getWorld(data().getString("machines." + id + ".world"));
             if (wl == null) {
@@ -73,8 +79,8 @@ public class ProduceMachineDelayTask extends BukkitRunnable {
         }
 
         if (JadGens.getInstance().getConfig().getBoolean("machines." + type + ".exp.enabled")) {
-            OfflinePlayer pl = Bukkit.getOfflinePlayer(UUID.fromString(data().getString("machines." + id + ".owner")));
-            Player onlinePL = pl.getPlayer();
+            Player onlinePL = Bukkit.getPlayer(UUID.fromString(data().getString("machines." + id + ".owner")));
+            if (onlinePL == null) return;
             onlinePL.setLevel(onlinePL.getLevel()+JadGens.getInstance().getConfig().getInt("machines." + type + ".exp.givelevels"));
         }
         //////////////////////////////////////////////
