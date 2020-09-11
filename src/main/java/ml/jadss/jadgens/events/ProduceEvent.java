@@ -5,13 +5,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 @SuppressWarnings("unused")
-public class onProduce extends Event {
+public class ProduceEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
     private boolean cancelled;
 
-    public onProduce() { }
+    public ProduceEvent() { }
 
     public void setCancelled(boolean cancel) {
         cancelled = cancel;

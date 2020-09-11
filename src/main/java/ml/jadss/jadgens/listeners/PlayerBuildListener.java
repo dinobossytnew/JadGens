@@ -1,7 +1,7 @@
 package ml.jadss.jadgens.listeners;
 
 import ml.jadss.jadgens.JadGens;
-import ml.jadss.jadgens.events.onMachinePlaceEvent;
+import ml.jadss.jadgens.events.MachinePlaceEvent;
 import ml.jadss.jadgens.nbt.NBTCompound;
 import ml.jadss.jadgens.nbt.NBTItem;
 import ml.jadss.jadgens.utils.Machine;
@@ -31,7 +31,7 @@ public class PlayerBuildListener implements Listener {
                 return;
             }
             int machineType = nbtCompound.getInteger("JadGens_machineType");
-            onMachinePlaceEvent event = new onMachinePlaceEvent(pl, machineType);
+            MachinePlaceEvent event = new MachinePlaceEvent(pl, machineType);
             JadGens.getInstance().getServer().getPluginManager().callEvent(event);
             if(event.isCancelled()) { e.setCancelled(true); return; }
             Machine machine = new Machine(block.getLocation(), machineType, pl.getUniqueId().toString());

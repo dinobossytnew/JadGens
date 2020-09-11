@@ -1,8 +1,8 @@
 package ml.jadss.jadgens.tasks;
 
 import ml.jadss.jadgens.JadGens;
-import ml.jadss.jadgens.events.onProduce;
-import ml.jadss.jadgens.events.onMachineProduce;
+import ml.jadss.jadgens.events.ProduceEvent;
+import ml.jadss.jadgens.events.MachineProduceEvent;
 import ml.jadss.jadgens.utils.Machine;
 import ml.jadss.jadgens.utils.PurgeMachines;
 import org.bukkit.*;
@@ -18,9 +18,9 @@ import java.util.UUID;
 public class ProduceMachineDelayTask extends BukkitRunnable {
     @Override
     public void run() {
-        onProduce onProduceEvent = new onProduce();
-        JadGens.getInstance().getServer().getPluginManager().callEvent(onProduceEvent);
-        if (onProduceEvent.isCancelled()) return;
+        ProduceEvent produceEvent = new ProduceEvent();
+        JadGens.getInstance().getServer().getPluginManager().callEvent(produceEvent);
+        if (produceEvent.isCancelled()) return;
         if (!data().isConfigurationSection("machines")) return;
         Set<String> keys = data().getConfigurationSection("machines").getKeys(false);
         for (String id : keys) {
@@ -41,9 +41,9 @@ public class ProduceMachineDelayTask extends BukkitRunnable {
     private void produceMachineStuff(String id, int type) {
         //////////////////////////////////////////////
 
-        onMachineProduce onMachineProduceEvent = new onMachineProduce(new Machine(id));
-        JadGens.getInstance().getServer().getPluginManager().callEvent(onMachineProduceEvent);
-        if (onMachineProduceEvent.isCancelled()) return;
+        MachineProduceEvent machineProduceEvent = new MachineProduceEvent(new Machine(id));
+        JadGens.getInstance().getServer().getPluginManager().callEvent(machineProduceEvent);
+        if (machineProduceEvent.isCancelled()) return;
 
         if (JadGens.getInstance().getConfig().getBoolean("machinesConfig.stopProducingIfOffline")) {
             Player testOnline = Bukkit.getPlayer(UUID.fromString(data().getString("machines." + id + ".owner")));

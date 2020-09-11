@@ -1,7 +1,7 @@
 package ml.jadss.jadgens.listeners;
 
 import ml.jadss.jadgens.JadGens;
-import ml.jadss.jadgens.events.onMachineBreakEvent;
+import ml.jadss.jadgens.events.MachineBreakEvent;
 import ml.jadss.jadgens.utils.Machine;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,7 +23,7 @@ public class PlayerBreakListener implements Listener {
         Machine machine = new Machine(id);
         if (machine.getId() == null) return;
         e.setCancelled(true);
-        onMachineBreakEvent event = new onMachineBreakEvent(pl, machine.getType(), UUID.fromString(machine.getOwner()).equals(pl.getUniqueId()), e.getBlock());
+        MachineBreakEvent event = new MachineBreakEvent(pl, machine.getType(), UUID.fromString(machine.getOwner()).equals(pl.getUniqueId()), e.getBlock());
         JadGens.getInstance().getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) { e.setCancelled(true); }
         if (UUID.fromString(machine.getOwner()).equals(pl.getUniqueId()) || pl.hasPermission(JadGens.getInstance().getConfig().getString("messages.bypassPermission"))) {

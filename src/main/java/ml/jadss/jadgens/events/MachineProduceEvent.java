@@ -16,7 +16,7 @@ import java.util.UUID;
 import static ml.jadss.jadgens.JadGensAPI.validatePlugin;
 
 @SuppressWarnings("unused")
-public class onMachineProduce extends Event {
+public class MachineProduceEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
@@ -29,7 +29,7 @@ public class onMachineProduce extends Event {
 
     private boolean cancelled;
 
-    public onMachineProduce(Machine mac) {
+    public MachineProduceEvent(Machine mac) {
         this.machine = mac;
         this.dropsRemaining = mac.getDropsRemaining();
         this.id = mac.getId();
