@@ -173,9 +173,7 @@ public class Machine {
     public String getId() {
         return id;
     }
-    public Location getLocation() {
-        return location;
-    }
+    public Location getLocation() { return location; }
     public Integer getType() {
         return type;
     }
@@ -184,7 +182,7 @@ public class Machine {
         return dropsRemaining;
     }
 
-    public FileConfiguration data() {
+    protected FileConfiguration data() {
         return JadGens.getInstance().getDataFile().data();
     }
 }
