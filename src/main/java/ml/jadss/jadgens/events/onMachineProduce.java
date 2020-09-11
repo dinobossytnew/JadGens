@@ -53,7 +53,7 @@ public class onMachineProduce extends Event {
         if (validatePlugin(plugin)) {
             if (JadGens.getInstance().isAPIDebugEnabled())
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&3JadGens &7>> &eThe &3&lMachine &ewith &b&lID &a\"" + id + "\" &ewas &c&lRemoved &eby "));
+                        "&3JadGens &7>> &eThe &3&lMachine &ewith &b&lID &a\"" + id + "\" &ewas &c&lRemoved &eby " + plugin.getDescription().getName()));
             new PurgeMachines().removeMachine(this.getId());
         }
     }
