@@ -53,6 +53,17 @@ public class PurgeMachines {
         return false;
     }
 
+    public void removeMachine(String id) {
+        if (id == null) return;
+        Machine mac = new Machine(id);
+        if (mac.getId() == null) return;
+        if (mac.getLocation().getWorld() == null) {
+            data().set("machines." + id, null);
+        }
+        mac.getLocation().getBlock().setType(Material.AIR);
+        data().set("machines." + id, null);
+    }
+
     public FileConfiguration data() {
         return JadGens.getInstance().getDataFile().data();
     }
