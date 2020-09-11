@@ -19,39 +19,33 @@ import org.bukkit.scheduler.BukkitTask;
 public class JadGens extends JavaPlugin {
 
     private DataFile dataFile;
-
     public DataFile getDataFile() {
         return dataFile;
     }
 
     //hook booleans.
     private boolean hookedVault = false;
-
     public boolean isHookedVault() {
         return hookedVault;
     }
 
     private boolean hookedPlaceHolderAPI = false;
-
     public boolean isHookedPlaceHolderAPI() {
         return hookedPlaceHolderAPI;
     }
 
     private boolean hookedPlayerPoints = false;
-
     public boolean isHookedPlayerPoints() {
         return hookedPlayerPoints;
     }
 
     //hooks
     private Economy eco;
-
     public Economy getEco() {
         return eco;
     }
 
     private PlayerPointsAPI pointsAPI;
-
     public PlayerPointsAPI getPointsAPI() {
         return pointsAPI;
     }
@@ -60,17 +54,14 @@ public class JadGens extends JavaPlugin {
 
     //tasks
     private BukkitTask task;
-
     public BukkitTask getTask() {
         return task;
     }
-
     public void setTask(BukkitTask t) {
         task = t;
     }
 
     private static JadGens instance;
-
     public static JadGens getInstance() {
         return instance;
     }
