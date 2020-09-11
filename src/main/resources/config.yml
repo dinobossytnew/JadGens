@@ -86,7 +86,7 @@ machineGui:
       - "&bInfinite &3Drops&e!"
 
 shop:
-  #The plugin supports "ECO" (Economy) and "EXP" (Experience Levels) as currencies currently.
+  #The plugin supports "ECO" (Economy) , "EXP" (Experience Levels) and "POINTS" (PlayerPoints) as currencies currently.
 
   enabled: true
   #There are 2 types of shop:
@@ -162,6 +162,8 @@ machinesConfig:
   preventMachineExplosion: true
   #Should we prevent the machines from being moved by pistons?
   preventPistonsMoveMachines: true
+  #Should the machine not produce if the player is offline?
+  stopProducingIfOffline: false
 
 machines:
   #the value below is the ID of the machine!
@@ -212,7 +214,7 @@ machines:
       enabled: false
       #how much to give of economy to the player?
       give: 10
-    #----EXP Stuff---- (can only be executed if the player is "ONLINE".
+    #----EXP Stuff---- (can only be executed if the player is "ONLINE").
     exp:
       enabled: false
       givelevels: 1
@@ -264,7 +266,7 @@ machines:
       enabled: true
       #how much to give of economy to the player?
       give: 10
-    #----EXP Stuff---- (can only be executed if the player is "ONLINE".
+    #----EXP Stuff---- (can only be executed if the player is "ONLINE").
     exp:
       enabled: true
       givelevels: 5
