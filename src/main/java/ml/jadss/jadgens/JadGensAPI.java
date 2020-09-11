@@ -8,6 +8,7 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -62,6 +63,15 @@ public class JadGensAPI {
             this.apiVersion = null;
             this.validAPI = false;
         }
+    }
+
+    public static boolean validatePlugin(Plugin pl) {
+        if (pl != null) {
+            boolean isValidPlugin = true;
+            for (String s : invalidNames) { if (s.equalsIgnoreCase(pl.getDescription().getName())) { isValidPlugin = false; } }
+            return isValidPlugin;
+        }
+        return false;
     }
 
     /**
