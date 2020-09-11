@@ -179,9 +179,7 @@ public class Machine {
     public Integer getType() {
         return type;
     }
-    public String getOwner() {
-        return uuid;
-    }
+    public String getOwner() { return uuid; }
     public Integer getDropsRemaining() {
         return dropsRemaining;
     }
