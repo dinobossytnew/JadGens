@@ -39,6 +39,7 @@ public class PurgeMachines {
         if (world == null) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3JadGens &7>> &eThe &3&lMachine &ewith &b&lID &a\"" + id + "\" &ewas &c&lRemoved&e!"));
             data().set("machines." + id, null);
+            return true;
         }
         Location loc = new Location(world, data().getInt("machines." + id + ".x"),
                 data().getInt("machines." + id + ".y"),
@@ -48,6 +49,7 @@ public class PurgeMachines {
             if (loc.getBlock().getType().equals(Material.AIR)) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3JadGens &7>> &eThe &3&lMachine &ewith &b&lID &a\"" + id + "\" &ewas &c&lRemoved&e!"));
                 data().set("machines." + id, null);
+                return true;
             }
         }
         return false;
