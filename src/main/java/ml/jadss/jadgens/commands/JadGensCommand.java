@@ -29,10 +29,13 @@ public class JadGensCommand implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("info")) {
             new InfoCommand(sender);
         } else {
-            CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[1], Arrays.stream(args).skip(2).map(s -> " " + s).collect(Collectors.joining()).substring(1).split(" "));
-            JadGens.getInstance().getServer().getPluginManager().callEvent(event);
-            if (event.isUsed()) return true;
-            new HelpCommand(sender);
+            if (args.length >= 2) { CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[0], Arrays.stream(args).skip(1).map(s -> " " + s).collect(Collectors.joining()).substring(1).split(" ")); }
+            if (args.length == 1) {
+                CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[0], null);
+                JadGens.getInstance().getServer().getPluginManager().callEvent(event);
+                if (event.isUsed()) return true;
+                new HelpCommand(sender);
+            }
         }
         return true;
     }
