@@ -29,8 +29,12 @@ public class JadGensCommand implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("info")) {
             new InfoCommand(sender);
         } else {
-            if (args.length >= 2) { CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[0], Arrays.stream(args).skip(1).map(s -> " " + s).collect(Collectors.joining()).substring(1).split(" ")); }
-            if (args.length == 1) {
+            try {
+                CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[0], Arrays.stream(args).skip(1).map(s -> " " + s).collect(Collectors.joining()).substring(1).split(" "));
+                JadGens.getInstance().getServer().getPluginManager().callEvent(event);
+                if (event.isUsed()) return true;
+                new HelpCommand(sender);
+            } catch(StringIndexOutOfBoundsException ex) {
                 CustomJadGensCommandArg event = new CustomJadGensCommandArg(sender, args[0], null);
                 JadGens.getInstance().getServer().getPluginManager().callEvent(event);
                 if (event.isUsed()) return true;
