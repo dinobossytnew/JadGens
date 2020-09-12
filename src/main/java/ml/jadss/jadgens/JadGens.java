@@ -156,6 +156,7 @@ public class JadGens extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OpenGuiListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
         getServer().getPluginManager().registerEvents(new BlockExplodeListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityExplodeEvent(), this);
         getServer().getPluginManager().registerEvents(new PistonMoveListener(), this);
         getServer().getPluginManager().registerEvents(new ShopListeners(), this);
     }
