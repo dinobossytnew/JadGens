@@ -66,8 +66,16 @@ public class JadGens extends JavaPlugin {
         return instance;
     }
 
+    //Compatibility Mode
+    public boolean compatibilityMode = false;
+    public boolean getCompMode() { return compatibilityMode; }
+
     @Override
     public void onEnable() {
+        if (getServer().getBukkitVersion().equalsIgnoreCase("1.7.10-R0.1-SNAPSHOT")) {
+            compatibilityMode = true;
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3JadGens &7>> &bEnabling &3&lCompatibility Mode&e..."));
+        }
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -105,7 +113,13 @@ public class JadGens extends JavaPlugin {
         setupAPIDebug();
         registerStuff();
 
-        metrics = new MetricsLite(this, 8789);
+        if (getServer().getBukkitVersion().equalsIgnoreCase("1.7.10-R0.1-SNAPSHOT")) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    "&3JadGens &7>> &bEnabling &3&lCompatibility Mode&e..."));
+        } else {
+            metrics = new MetricsLite(this, 8789);
+        }
+
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3JadGens &7>> &3Plugin &bEnabled&7!"));
     }
 

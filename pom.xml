@@ -6,7 +6,7 @@
 
     <groupId>ml.jadss</groupId>
     <artifactId>JadGens</artifactId>
-    <version>2.2.1.1-JadLaxySnap</version>
+    <version>2.3.1-JadLaxySnap</version>
     <packaging>jar</packaging>
 
     <name>JadGens</name>
@@ -135,6 +135,7 @@
             <version>2.10.9</version>
             <scope>provided</scope>
         </dependency>
+        <!--PlayerPoints Dependency-->
         <dependency>
             <groupId>org.black_ixx</groupId>
             <artifactId>PlayerPoints</artifactId>

@@ -59,7 +59,7 @@ public class Fuel {
             lore.add(ChatColor.translateAlternateColorCodes('&', s));
         }
 
-        if (JadGens.getInstance().getConfig().getBoolean("fuels." + id + ".glow")) {
+        if (!JadGens.getInstance().getCompMode() && JadGens.getInstance().getConfig().getBoolean("fuels." + id + ".glow")) {
             meta.addEnchant(Enchantment.DIG_SPEED, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
