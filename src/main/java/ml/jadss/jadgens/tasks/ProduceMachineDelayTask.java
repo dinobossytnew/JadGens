@@ -3,6 +3,7 @@ package ml.jadss.jadgens.tasks;
 import ml.jadss.jadgens.JadGens;
 import ml.jadss.jadgens.events.ProduceEvent;
 import ml.jadss.jadgens.events.MachineProduceEvent;
+import ml.jadss.jadgens.utils.Compatibility;
 import ml.jadss.jadgens.utils.Machine;
 import ml.jadss.jadgens.utils.PurgeMachines;
 import org.bukkit.*;
@@ -62,7 +63,7 @@ public class ProduceMachineDelayTask extends BukkitRunnable {
                     data().getInt("machines." + id + ".z"));
             location.setY(location.getBlockY() + 1);
 
-            ItemStack dropItem = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("machines." + type + ".dropItems.material")),
+            ItemStack dropItem = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("machines." + type + ".dropItems.material")),
                     JadGens.getInstance().getConfig().getInt("machines." + type + ".dropItems.amount"),
                     (short) JadGens.getInstance().getConfig().getInt("machines." + type + ".dropItems.damage"));
             wl.dropItem(location, dropItem);

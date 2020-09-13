@@ -33,13 +33,13 @@ public class Shop {
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("shop.shopTitle")));
 
         //fill the gui with stained glass.
-        ItemStack itemBack = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
+        ItemStack itemBack = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
         for(int i = 0;i < 27; i++) {
             inv.setItem(i, itemBack);
         }
 
-        ItemStack machinesItem = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("shop.shopMainMenu.machinesItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.shopMainMenu.machinesItem.damage"));
-        ItemStack fuelsItem = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("shop.shopMainMenu.fuelsItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.shopMainMenu.fuelsItem.damage"));
+        ItemStack machinesItem = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("shop.shopMainMenu.machinesItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.shopMainMenu.machinesItem.damage"));
+        ItemStack fuelsItem = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("shop.shopMainMenu.fuelsItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.shopMainMenu.fuelsItem.damage"));
         ItemMeta machinesMeta = machinesItem.getItemMeta();
         ItemMeta fuelsMeta = fuelsItem.getItemMeta();
 
@@ -86,7 +86,7 @@ public class Shop {
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("shop.shopTitle")));
 
         //fill the gui with stained glass.
-        ItemStack itemBack = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
+        ItemStack itemBack = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
         for (int i = 0; i < 27; i++) {
             inv.setItem(i, itemBack);
         }
@@ -94,7 +94,7 @@ public class Shop {
         Set<String> keys = JadGens.getInstance().getConfig().getConfigurationSection("machines").getKeys(false);
         for (String key : keys) {
             if (!JadGens.getInstance().getConfig().getBoolean("machines." + key + ".shop.displayOnShop")) continue;
-            ItemStack item = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("machines." + key + ".MachineBlock.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machines." + key + ".MachineBlock.damage"));
+            ItemStack item = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("machines." + key + ".MachineBlock.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machines." + key + ".MachineBlock.damage"));
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("machines." + key + ".displayName")));
 
@@ -135,7 +135,7 @@ public class Shop {
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("shop.shopTitle")));
 
         //fill the gui with stained glass.
-        ItemStack itemBack = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
+        ItemStack itemBack = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("shop.backgroundItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("shop.backgroundItem.damage"));
         for (int i = 0; i < 27; i++) {
             inv.setItem(i, itemBack);
         }
@@ -143,7 +143,7 @@ public class Shop {
         Set<String> keys = JadGens.getInstance().getConfig().getConfigurationSection("fuels").getKeys(false);
         for (String key : keys) {
             if (!JadGens.getInstance().getConfig().getBoolean("fuels." + key + ".shop.displayOnShop")) continue;
-            ItemStack item = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("fuels." + key + ".item.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machines." + key + ".MachineBlock.damage"));
+            ItemStack item = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("fuels." + key + ".item.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machines." + key + ".MachineBlock.damage"));
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("fuels." + key + ".displayName")));
 

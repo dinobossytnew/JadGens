@@ -104,13 +104,13 @@ public class Machine {
         if (this.id == null) return null;
         Inventory gui = Bukkit.createInventory(null, 9, ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("machineGui.title")));
 
-        ItemStack backitem = new ItemStack(new Compatibility().getMaterial(JadGens.getInstance().getConfig().getString("machineGui.dropsCheckItem.backItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machineGui.dropsCheckItem.backItem.damage"));
+        ItemStack backitem = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("machineGui.dropsCheckItem.backItem.material")), 1, (short) JadGens.getInstance().getConfig().getInt("machineGui.dropsCheckItem.backItem.damage"));
         for (int i = 8; i > -1; i--) {
             gui.setItem(i, backitem);
         }
 
         if (JadGens.getInstance().getConfig().getBoolean("machineGui.dropsCheckItem.enabled")) {
-            ItemStack dropsItem = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("machineGui.dropsCheckItem.item.material")),
+            ItemStack dropsItem = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("machineGui.dropsCheckItem.item.material")),
                     1,
                     (short) JadGens.getInstance().getConfig().getInt("machineGui.dropsCheckItem.item.damage"));
 
@@ -141,7 +141,7 @@ public class Machine {
     }
 
     public ItemStack createItem(int id) {
-        ItemStack machine = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("machines." + id + ".MachineBlock.material")), 1, (short) JadGens.getInstance().getConfig().getInt("Machines." + id + ".MachineBlock.damage"));
+        ItemStack machine = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("machines." + id + ".MachineBlock.material")), 1, (short) JadGens.getInstance().getConfig().getInt("Machines." + id + ".MachineBlock.damage"));
         ItemMeta meta = machine.getItemMeta();
 
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("machines." + id + ".displayName")));

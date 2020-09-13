@@ -72,7 +72,7 @@ public class JadGens extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        if (getServer().getBukkitVersion().equalsIgnoreCase("1.7.10-R0.1-SNAPSHOT")) {
+        if (getServer().getBukkitVersion().contains("1.7")) {
             compatibilityMode = true;
             Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&3JadGens &7>> &bEnabling &3&lCompatibility Mode&e..."));
         }

@@ -25,13 +25,28 @@ public class Fuel {
     }
 
     public Fuel(ItemStack item) {
+        if (!item.hasItemMeta()) { this.type = null; this.drops = null; return; }
         NBTCompound nbtCompound = new NBTItem(item);
-        if (nbtCompound.getBoolean("JadGens_fuel")) {
-            this.type = nbtCompound.getInteger("JadGens_fuelType");
-            this.drops = nbtCompound.getInteger("JadGens_drops");
+        if (!JadGens.getInstance().getCompMode()) {
+            if (nbtCompound.getBoolean("JadGens_fuel")) {
+                this.type = nbtCompound.getInteger("JadGens_fuelType");
+                this.drops = nbtCompound.getInteger("JadGens_drops");
+                return;
+            } else {
+                this.drops = null;
+                this.type = null;
+                return;
+            }
         } else {
-            this.drops = null;
+            for (String key : JadGens.getInstance().getConfig().getConfigurationSection("fuels").getKeys(false)) {
+                if (ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("fuels." + key + ".displayName")).equals(item.getItemMeta().getDisplayName())) {
+                    this.type = Integer.parseInt(key);
+                    this.drops = JadGens.getInstance().getConfig().getInt("fuels." + key + ".drops");
+                    return;
+                }
+            }
             this.type = null;
+            this.drops = null;
         }
     }
 
@@ -45,12 +60,19 @@ public class Fuel {
 
     public boolean isFuel(ItemStack item) {
         if (item == null) return false;
-        NBTCompound nbtCompound = new NBTItem(item);
-        return nbtCompound.hasKey("JadGens_fuel");
+        if (!item.getItemMeta().hasDisplayName()) return false;
+        if (!JadGens.getInstance().getCompMode()) {
+            NBTCompound nbtCompound = new NBTItem(item);
+            return nbtCompound.hasKey("JadGens_fuel");
+        } else {
+            for (String key : JadGens.getInstance().getConfig().getConfigurationSection("fuels").getKeys(false))
+                if (ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("fuels." + key + ".displayName")).equals(item.getItemMeta().getDisplayName())) return true;
+            return false;
+        }
     }
 
     public ItemStack createItem(int id) {
-        ItemStack fuel = new ItemStack(Material.getMaterial(JadGens.getInstance().getConfig().getString("fuels." + id + ".item.material")), 1, (short) JadGens.getInstance().getConfig().getInt("fuels." + id + ".item.damage"));
+        ItemStack fuel = new ItemStack(new Compatibility().matParser(JadGens.getInstance().getConfig().getString("fuels." + id + ".item.material")), 1, (short) JadGens.getInstance().getConfig().getInt("fuels." + id + ".item.damage"));
         ItemMeta meta = fuel.getItemMeta();
 
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', JadGens.getInstance().getConfig().getString("fuels." + id + ".displayName")));
