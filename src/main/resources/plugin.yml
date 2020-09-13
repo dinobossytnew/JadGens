@@ -2,6 +2,7 @@ name: JadGens
 version: ${project.version}
 main: ml.jadss.jadgens.JadGens
 load: STARTUP
+api-version: '1.13'
 authors: [Jadss_pt]
 softdepend: [Vault, PlaceHolderAPI, PlayertPoints]
 description: a generators plugin! hope you like it!
